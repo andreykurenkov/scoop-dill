@@ -21,10 +21,7 @@ import zmq
 import sys
 import copy
 import logging
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
+import dill as pickle
 
 import scoop
 from scoop import TIME_BETWEEN_PARTIALDEBUG
@@ -118,7 +115,7 @@ class Broker(object):
         self.cluster_socket = self.context.socket(zmq.DEALER)
         self.cluster_socket.setsockopt(zmq.IPV4ONLY, 0)
         self.cluster_socket.setsockopt_string(zmq.IDENTITY, self.getName())
-            
+
         self.cluster_socket.setsockopt(zmq.RCVHWM, 0)
         self.cluster_socket.setsockopt(zmq.SNDHWM, 0)
         self.cluster_socket.setsockopt(zmq.IMMEDIATE, 1)

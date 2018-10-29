@@ -23,10 +23,7 @@ import logging
 import asyncore
 import array
 import threading
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
+import dill as pickle
 
 import scoop
 from .. import shared, encapsulation, utils
@@ -121,7 +118,7 @@ class TCPCommunicator(object):
 
         # socket for the shutdown signal
         #self.infoSocket = CreateZMQSocket(zmq.SUB)
-        
+
         # Set poller
         #self.poller = zmq.Poller()
         #self.poller.register(self.socket, zmq.POLLIN)
@@ -194,7 +191,7 @@ class TCPCommunicator(object):
             msg = router_msg[1:] + [router_msg[0]]
         else:
             msg = self.socket.recv_multipart()
-        
+
         try:
             thisFuture = pickle.loads(msg[1])
         except AttributeError as e:
@@ -350,7 +347,7 @@ class TCPCommunicator(object):
                 "broker.".format(scoop.worker, destination)
             )
             self.socket.send_multipart([
-                b"REPLY", 
+                b"REPLY",
                 ] + list(args) + [
                 destination,
             ])

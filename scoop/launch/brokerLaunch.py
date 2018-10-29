@@ -20,10 +20,7 @@ import subprocess
 import shlex
 import sys
 import os
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
+import dill as pickle
 
 import scoop
 from .constants import BASE_SSH, BASE_RSH

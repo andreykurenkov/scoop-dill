@@ -23,10 +23,7 @@ import socket
 import copy
 import asyncore
 import logging
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
+import dill as pickle
 
 import scoop
 from .. import discovery, utils

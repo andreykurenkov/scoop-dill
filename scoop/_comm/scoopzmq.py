@@ -21,10 +21,7 @@ import socket
 import copy
 import logging
 import threading
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
+import dill as pickle
 
 import zmq
 
@@ -234,7 +231,7 @@ class ZMQCommunicator(object):
             msg = router_msg[1:] + [router_msg[0]]
         else:
             msg = self.socket.recv_multipart()
-        
+
         try:
             thisFuture = pickle.loads(msg[1])
         except (AttributeError, ImportError) as e:
@@ -415,7 +412,7 @@ class ZMQCommunicator(object):
                 "broker.".format(scoop.worker, destination)
             )
             self.socket.send_multipart([
-                REPLY, 
+                REPLY,
                 ] + list(args) + [
                 destination,
             ])
@@ -451,7 +448,7 @@ class ZMQCommunicator(object):
         if self.ZMQcontext and not self.ZMQcontext.closed:
             scoop.SHUTDOWN_REQUESTED = True
             self.socket.send(SHUTDOWN)
-            
+
             # pyzmq would issue an 'no module named zmqerror' on windows
             # without this
             try:
