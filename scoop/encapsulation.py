@@ -20,10 +20,7 @@ import types
 import os
 from inspect import ismodule
 from functools import partial
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
+import dill as pickle
 
 try:
     import copyreg

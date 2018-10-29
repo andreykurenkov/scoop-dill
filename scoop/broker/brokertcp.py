@@ -317,7 +317,7 @@ class Broker(object):
         # Write down statistics about this run if asked
         if self.debug:
             import os
-            import pickle
+            import dill as pickle
             try:
                 os.mkdir('debug')
             except:

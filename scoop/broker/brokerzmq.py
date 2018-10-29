@@ -362,7 +362,7 @@ class Broker(object):
 
     def writeDebug(self, path="debug"):
         import os
-        import pickle
+        import dill as pickle
         try:
             os.makedirs(path)
         except:
